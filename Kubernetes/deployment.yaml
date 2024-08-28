@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Pod
+metadata:
+  labels:
+    app: devsecops
+  name: devsecops
+spec:
+  containers:
+  - image: damolak/netflix:latest
+    name: devsecops-container
+    volumeMounts:
+    - mountPath: /tmp
+      name: devsecvol
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 999
+      readOnlyRootFilesystem: true    
+      
