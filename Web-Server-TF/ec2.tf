@@ -13,3 +13,7 @@ resource "aws_instance" "ec2" {
     Name = var.instance-name
   }
 }
+
+output "web_server_public_ip" {
+  value = aws_instance.ec2.public_ip
+}
