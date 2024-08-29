@@ -81,8 +81,8 @@ pipeline{
             steps {
                 // Run the Ansible playbook
                 ansiblePlaybook(
-                    playbook: 'path/to/your/hardening.yml',
-                    inventory: 'path/to/your/inventory.ini'
+                    playbook: './ansible-hardening.yml',
+                    inventory: './inventory.ini'
                 )
             }
         }
