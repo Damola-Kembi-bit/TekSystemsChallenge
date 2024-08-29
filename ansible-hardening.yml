@@ -1,0 +1,6 @@
+---
+- name: Playbook to harden AWS EC2.
+  hosts: prod
+  
+  roles:
+    - devsec.hardening.os_hardening
