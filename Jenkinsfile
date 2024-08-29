@@ -79,7 +79,6 @@ pipeline{
 
       stage('Ansible Hardening') {
             steps {
-                // Run the Ansible playbook
                 ansiblePlaybook(
                     playbook: './ansible-hardening.yml',
                     inventory: './inventory.ini'
