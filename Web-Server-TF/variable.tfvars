@@ -1,0 +1,7 @@
+vpc-name      = "devsec-vpc"
+igw-name      = "devsec-igw"
+subnet-name   = "devsec-subnet"
+rt-name       = "devsec-route-table"
+sg-name       = "devsec-sg"
+instance-name = "devsec-server"
+key-name      = "devsec"
