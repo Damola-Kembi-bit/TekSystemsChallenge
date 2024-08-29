@@ -22,3 +22,4 @@ The "webserver-install.sh" contains the script to install apache webserver on th
 
 
 The **Jenkinsfile** file contains Jenkins pipeline configuration for Task 2 in Part 2.
+The "ansible-hardening.yml" and "inventory.ini" file are the ansible playbook and inventory configuration files respectively, used in the Jenkins file in the 'Ansible Hardening' stage.
