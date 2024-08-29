@@ -20,6 +20,7 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
             steps{
+                // Runs the sonarqube analysis using sonar plugin for SAST and code quality
                 withSonarQubeEnv('sonar-server') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=DevSec-Netflix-Clone \
                     -Dsonar.projectKey=DevSec-Netflix-Clone '''
@@ -43,18 +44,21 @@ pipeline{
         
         stage('OWASP FS SCAN') {
             steps {
+                // Runs OWASP Dependency Check using dependencyCcheck plugin
                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
         stage('TRIVY FS SCAN') {
             steps {
+                // Runs trivy scan on the directory to find vulnerabilities
                 sh "trivy fs . > trivyfs.txt"
             }
         }
         
         stage("Docker Build & Push"){
             steps{
+                // Builds and pushes the docker image to prvate docker hub
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker', url: "https://index.docker.io/v1/"){   
                        sh "docker build --build-arg TMDB_V3_API_KEY=3aa8b3d85a965f2afcd051aba6981fd6 -t netflix ."
@@ -66,6 +70,7 @@ pipeline{
         }
         stage("TRIVY"){
             steps{
+                // Runs trivy to scan docker image for vulnerabilities
                 sh "trivy image damolak/netflix:latest > trivyimage.txt" 
             }
         }
@@ -79,6 +84,7 @@ pipeline{
 
       stage('Ansible Hardening') {
             steps {
+                // Uses ansiblePlaybook plugin to harden target ec2 instance.
                 ansiblePlaybook(
                     playbook: './ansible-hardening.yml',
                     inventory: './inventory.ini'
